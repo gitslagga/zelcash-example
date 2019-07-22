@@ -1,6 +1,6 @@
-# from package.bitcoinrpc import *
 from flask import Flask, abort, request, jsonify
 
+from package import *
 import logging
 import json
 
@@ -54,7 +54,8 @@ def sendtoaddress():
             address = request.json['address']
             amount = request.json['amount']
         except Exception as ex:
-            app.logger.warning('Sendtoaddress Exception: {}'.format(ex))
+            app.logger.warning('Sendtoaddress exception: {}'.format(ex))
+            SendDingDing('Sendtoaddress exception: {}, request json: {}'.format(ex, request.json))
             return jsonify({'code': 500})
         return jsonify({'code': 0, 'data': '9d53dda88195c46c45fc7118dfeb3c5d90bd1b63e239208862909bc8bf556dd5'})
 
