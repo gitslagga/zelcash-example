@@ -33,4 +33,13 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Printf("Block count: %d", blockCount)
+
+	
+	// Get the current info
+	info, err := client.GetInfo()
+		if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("Version: %d", info.Version)
+	log.Printf("Blocks count: %d", info.Blocks)
 }
