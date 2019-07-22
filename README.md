@@ -99,6 +99,7 @@
   /home/slagga/.zelcash/wallet-dump.dat
   ```
 * ./zelcash-cli importwallet ~/.zelcash/wallet-dump.dat 
+
 * ./zelcash-cli dumpprivkey "t1XufmoM2xCx5EWp48SPw5HAb8o8xLiA3xq"
   ```
   L3TaeHx1uXzqi4qE8THrSQQgADk8kimPCuaFj99bNGG6zBZYbnwJ
@@ -107,6 +108,34 @@
   ```
   t1XufmoM2xCx5EWp48SPw5HAb8o8xLiA3xq
   ```
+* ./zelcash-cli listaddressgroupings
+  ```
+  [
+    [
+        [
+        "t1XbeuL2ctQgEg4Kb5QK7EZL4JVXV7Davpb",
+        0.99890000
+        ],
+        [
+        "t1XufmoM2xCx5EWp48SPw5HAb8o8xLiA3xq",
+        0.00000000,
+        ""
+        ],
+        [
+        "t1eFaxULNXcUb3r2qoY9SHvqZKLAXrYDsQ4",
+        0.00000000
+        ]
+    ],
+    [
+        [
+        "t1fhZSunDvwrf6gNcYNXV26jJ9DcCPdX76W",
+        8.99989789,
+        ""
+        ]
+    ]
+  ]
+  ```
+
 
 
 
