@@ -8,7 +8,7 @@ from .setting import *
 def getConnection():
     return AuthServiceProxy('http://%s:%s@%s:%s'%(RPC_USER, RPC_PASS, RPC_HOST, RPC_PORT), timeout= TIMEOUT)
 
-def SendDingDing(content):
+def sendDingDing(content):
     headers = {
         'Content-Type': 'application/json',
         'Charset': 'utf-8'

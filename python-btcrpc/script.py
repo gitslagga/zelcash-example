@@ -1,5 +1,6 @@
 from flask import Flask, abort, request, jsonify
-from package import *
+from package import getConnection
+from package import sendDingDing
 
 import logging
 import json
@@ -38,7 +39,7 @@ def sendtoaddress():
             hash = rpc_connection.sendtoaddress(request.json['address'], request.json['amount'])
         except Exception as ex:
             app.logger.warning('Sendtoaddress exception: {}'.format(ex))
-            SendDingDing('Sendtoaddress exception: {}, request json: {}'.format(ex, request.json))
+            sendDingDing('Sendtoaddress exception: {}, request json: {}'.format(ex, request.json))
             return jsonify({'code': 500})
         return jsonify({'code': 0, 'data': hash})
 
