@@ -4,9 +4,25 @@ from package import sendDingDing
 
 import logging
 import json
+import threading
 
 app = Flask(__name__)
 rpc_connection = getConnection()
+
+def setInterval(func, sec):
+    def funcWrapper():
+        setInterval(func, sec)
+        func()
+    t = threading.Timer(sec, funcWrapper)
+    t.start()
+    return t
+
+def ping():
+    pong = rpc_connection.ping()
+    app.logger.warning('ping info: {}'.format(pong))
+
+# keep heart
+setInterval(ping, 20)
 
 @app.route('/getinfo', methods=['POST'])
 def getinfo():
