@@ -1,11 +1,11 @@
-# from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
+from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 
 import json
 import requests
 from .setting import *
 
-# def getConnection():
-#     return AuthServiceProxy('http://%s:%s@%s:%s'%(RPC_HOST, RPC_PASSWORD, RPC_HOST, RPC_PORT))
+def getConnection():
+    return AuthServiceProxy('http://%s:%s@%s:%s'%(RPC_HOST, RPC_PASSWORD, RPC_HOST, RPC_PORT))
 
 def SendDingDing(content):
     headers = {
