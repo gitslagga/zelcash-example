@@ -5,7 +5,7 @@ import requests
 from .setting import *
 
 def getConnection():
-    return AuthServiceProxy('http://%s:%s@%s:%s'%(RPC_USER, RPC_PASS, RPC_HOST, RPC_PORT))
+    return AuthServiceProxy('http://%s:%s@%s:%s'%(RPC_USER, RPC_PASS, RPC_HOST, RPC_PORT), timeout= TIMEOUT)
 
 def SendDingDing(content):
     headers = {
