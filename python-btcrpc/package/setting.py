@@ -3,4 +3,4 @@ DINGDING_URL = 'https://oapi.dingtalk.com/robot/send?access_token=f714e22c7e07fc
 RPC_HOST = '127.0.0.1'
 RPC_PORT = '16124'
 RPC_USER = 'username'
-RPC_PASSWORD = 'mS2SZpPCZZVZwSP8EOCyMmGxqFNyPoKSUdiYSpcLVQE='
+RPC_PASS = 'mS2SZpPCZZVZwSP8EOCyMmGxqFNyPoKSUdiYSpcLVQE='

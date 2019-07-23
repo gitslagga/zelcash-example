@@ -5,7 +5,8 @@
 * sudo pip install flask
 * sudo pip install flask-restful
 * sudo pip install requests
-* python script.py
+* python3 script.py
+* env FLASK_APP=script.py flask run
 
 ## Todo list
 * Integrate with restful api and dingding
