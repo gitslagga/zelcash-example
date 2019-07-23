@@ -172,3 +172,4 @@
 
 #### Note
 * minimal transfer is 0.00001
+* at transaction list, confirmations is least 1 for payment success
