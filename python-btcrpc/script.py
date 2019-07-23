@@ -68,8 +68,12 @@ def listtransactions():
         start = request.json['start']
     if request.json and 'num' in request.json:
         num = request.json['num']
-    
-    list_transactions = rpc_connection.listtransactions('*', num, start)
+
+    try:
+        list_transactions = rpc_connection.listtransactions('*', num, start)
+    except Exception as ex:
+        app.logger.warning('listtransactions exception: {}'.format(ex))
+        return jsonify({'code': 500})
     return jsonify({'code': 0, 'data': list_transactions})
 
 @app.route('/listaddressgroupings', methods=['POST'])
