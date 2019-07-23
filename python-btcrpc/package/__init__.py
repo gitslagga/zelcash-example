@@ -2,6 +2,7 @@ from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 
 import json
 import requests
+import logging
 from .setting import *
 
 def getConnection():
@@ -27,7 +28,7 @@ def SendDingDing(content):
         sendData = json.dumps(request_data)
         response = requests.post(url= DINGDING_URL, headers= headers, data= sendData)
         content = response.content.decode()
-        print(content)
+        logging.warning('Dingding send message info: {}'.format(content))
     except Exception as ex:
-        print('Dingding send message error: {}'.format(ex))
+        logging.warning('Dingding send message error: {}'.format(ex))
  
