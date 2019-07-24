@@ -9,7 +9,7 @@
 * ./zcutil/build.sh -j$(nproc)
 * cd zelcash
 
-#### Run Zelcash
+#### Configuration Zelcash
 * mkdir ~/.zelcash
 * echo "rpcuser=username" >> ~/.zelcash/zelcash.conf
 * echo "rpcpassword=`head -c 32 /dev/urandom | base64`" >> ~/.zelcash/zelcash.conf
@@ -17,8 +17,28 @@
 * echo "addnode=explorer.zel.cash" >> ~/.zelcash/zelcash.conf
 * echo "addnode=explorer.zel.zelcore.io" >> ~/.zelcash/zelcash.conf
 * ./zcutil/fetch-params.sh
-* Run zelcashd
+  
+#### Run zelcashd
 * ./src/zelcashd
+* ./src/zelcashd -daemon
+* vim /usr/lib/systemd/system/zelcashd.service
+  ```
+    [Unit]
+    Description=Zelcash Daemon
+
+    [Service]
+    Type=simple
+    ExecStart=/root/code/zelcash-node/zelcash/src/zelcashd
+    Restart=on-failure
+    User=root
+    Group=root
+
+    [Install]
+    WantedBy=multi-user.target
+  ```
+
+* systemctl daemon-reload
+* systemctl start zelcashd.service
 
 #### Necessary Operator
 * ./zelcash-cli getinfo
