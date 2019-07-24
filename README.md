@@ -36,7 +36,6 @@
     [Install]
     WantedBy=multi-user.target
   ```
-
 * systemctl daemon-reload
 * systemctl start zelcashd.service
 
