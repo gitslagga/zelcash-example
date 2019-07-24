@@ -1,28 +1,17 @@
 from flask import Flask, abort, request, jsonify
+from flask.json import JSONEncoder as BaseJSONEncoder
 from package import getConnection
 from package import sendDingDing
 
 import logging
 import json
 import threading
+import datetime
+import decimal
+import uuid
 
 app = Flask(__name__)
 rpc_connection = getConnection()
-
-def setInterval(func, sec):
-    def funcWrapper():
-        setInterval(func, sec)
-        func()
-    t = threading.Timer(sec, funcWrapper)
-    t.start()
-    return t
-
-def ping():
-    pong = rpc_connection.ping()
-    app.logger.warning('ping info: {}'.format(pong))
-
-# keep heart
-setInterval(ping, 20)
 
 @app.route('/getinfo', methods=['POST'])
 def getinfo():
@@ -80,6 +69,37 @@ def listtransactions():
 def listaddressgroupings():
     address_groupings = rpc_connection.listaddressgroupings()
     return jsonify({'code': 0, 'data': address_groupings})
+
+def setInterval(func, sec):
+    def funcWrapper():
+        setInterval(func, sec)
+        func()
+    t = threading.Timer(sec, funcWrapper)
+    t.start()
+    return t
+
+def ping():
+    pong = rpc_connection.ping()
+    app.logger.warning('ping info: {}'.format(pong))
+
+# keep heart
+setInterval(ping, 20)
+
+class JSONEncoder(BaseJSONEncoder):
+    def default(self, o):
+        if isinstance(o, datetime.datetime):
+            return o.strftime("%Y-%m-%d %H:%M:%S")
+        if isinstance(o, datetime.date):
+            return o.strftime('%Y-%m-%d')
+        if isinstance(o, decimal.Decimal):
+            return str(o)
+        if isinstance(o, uuid.UUID):
+            return str(o)
+        if isinstance(o, bytes):
+            return o.decode("utf-8")
+        return super(JSONEncoder, self).default(o)
+
+app.json_encoder = JSONEncoder
 
 if __name__ == '__main__':
     handler = logging.FileHandler('flask.log', encoding='UTF-8')
