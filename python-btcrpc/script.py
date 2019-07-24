@@ -13,6 +13,7 @@ import uuid
 app = Flask(__name__)
 rpc_connection = getConnection()
 
+###################################### rustful api ################################################
 @app.route('/getinfo', methods=['POST'])
 def getinfo():
     wallet_info = rpc_connection.getinfo()
@@ -70,6 +71,7 @@ def listaddressgroupings():
     address_groupings = rpc_connection.listaddressgroupings()
     return jsonify({'code': 0, 'data': address_groupings})
 
+###################################### keep heart ################################################
 def setInterval(func, sec):
     def funcWrapper():
         setInterval(func, sec)
@@ -82,9 +84,9 @@ def ping():
     pong = rpc_connection.ping()
     app.logger.warning('ping info: {}'.format(pong))
 
-# keep heart
 setInterval(ping, 20)
 
+###################################### fix json format type ################################################
 class JSONEncoder(BaseJSONEncoder):
     def default(self, o):
         if isinstance(o, datetime.datetime):
