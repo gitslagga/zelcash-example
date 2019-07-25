@@ -1,5 +1,6 @@
 from flask import Flask, abort, request, jsonify
 from flask.json import JSONEncoder as BaseJSONEncoder
+from gevent.pywsgi import WSGIServer
 from package import getConnection
 from package import sendDingDing
 
@@ -109,5 +110,10 @@ if __name__ == '__main__':
     logging_format = logging.Formatter('%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
     handler.setFormatter(logging_format)
     app.logger.addHandler(handler)
-    app.run(debug=True)
+    
+    # app.run(debug=True)
+
+    ###################################### production run ################################################
+    http_server = WSGIServer(('', 5000), app)
+    http_server.serve_forever()
     
