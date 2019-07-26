@@ -76,19 +76,16 @@ def listaddressgroupings():
 def getblock():
     app.logger.warning('request params: {}'.format(request.json))
 
-    if not request.json or ('hash' not in request.json and 'height' not in request.json):
+    if not request.json or 'hashorheight' not in request.json:
         abort(400)
     else:
         try:
-            if request.json['hash']:
-                data = rpc_connection.getblock(request.json['hash'])
-            else:
-                data = rpc_connection.getblock(request.json['height'])
+            block = rpc_connection.getblock(request.json['hashorheight'])
         except Exception as ex:
             app.logger.warning('getblock exception: {}'.format(ex))
             sendDingDing('getblock exception: {}, request json: {}'.format(ex, request.json))
             return jsonify({'code': 500})
-        return jsonify({'code': 0, 'data': data})
+        return jsonify({'code': 0, 'data': block})
 
 @app.route('/gettransaction', methods=['POST'])
 def gettransaction():
