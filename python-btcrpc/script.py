@@ -72,6 +72,39 @@ def listaddressgroupings():
     address_groupings = rpc_connection.listaddressgroupings()
     return jsonify({'code': 0, 'data': address_groupings})
 
+@app.route('/getblock', methods=['POST'])
+def getblock():
+    app.logger.warning('request params: {}'.format(request.json))
+
+    if not request.json or ('hash' not in request.json and 'height' not in request.json):
+        abort(400)
+    else:
+        try:
+            if request.json['hash']:
+                data = rpc_connection.getblock(request.json['hash'])
+            else:
+                data = rpc_connection.getblock(request.json['height'])
+        except Exception as ex:
+            app.logger.warning('getblock exception: {}'.format(ex))
+            sendDingDing('getblock exception: {}, request json: {}'.format(ex, request.json))
+            return jsonify({'code': 500})
+        return jsonify({'code': 0, 'data': data})
+
+@app.route('/gettransaction', methods=['POST'])
+def gettransaction():
+    app.logger.warning('request params: {}'.format(request.json))
+
+    if not request.json or 'txid' not in request.json:
+        abort(400)
+    else:
+        try:
+            transaction = rpc_connection.gettransaction(request.json['txid'])
+        except Exception as ex:
+            app.logger.warning('gettransaction exception: {}'.format(ex))
+            sendDingDing('gettransaction exception: {}, request json: {}'.format(ex, request.json))
+            return jsonify({'code': 500})
+        return jsonify({'code': 0, 'data': transaction})
+
 ###################################### keep heart ################################################
 def setInterval(func, sec):
     def funcWrapper():
