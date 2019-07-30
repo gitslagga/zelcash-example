@@ -54,7 +54,10 @@
   ```
     {
         "code": 0, 
-        "data": "t1RqbcVDZVT5MthA2d6HYog2wQK4NAhxBXa"
+        "data": { 
+            "address": "t1RqbcVDZVT5MthA2d6HYog2wQK4NAhxBXa"
+            "privateKey": "t1RqbcVDZVT5MthA2d6HYog2wQK4NAhxBXa"
+        }
     }
   ```
 

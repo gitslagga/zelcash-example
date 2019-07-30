@@ -27,8 +27,13 @@ def getblockcount():
 
 @app.route('/getnewaddress', methods=['POST'])
 def getnewaddress():
-    new_address = rpc_connection.getnewaddress()
-    return jsonify({'code': 0, 'data': new_address})
+    address = rpc_connection.getnewaddress()
+    privateKey = rpc_connection.dumpprivkey(address)
+
+    return jsonify({'code': 0, 'data': {
+        address,
+        privateKey
+    }})
 
 @app.route('/getbalance', methods=['POST'])
 def getbalance():
