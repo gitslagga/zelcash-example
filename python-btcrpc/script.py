@@ -31,8 +31,8 @@ def getnewaddress():
     privateKey = rpc_connection.dumpprivkey(address)
 
     return jsonify({'code': 0, 'data': {
-        address,
-        privateKey
+        "address": address,
+        "privateKey": privateKey
     }})
 
 @app.route('/getbalance', methods=['POST'])
